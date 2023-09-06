@@ -2,8 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.yizhi.student.dao.StudentInfoDao">
-	
-	
-
-
+    <insert id="save" parameterType="com.yizhi.student.domain.StudentInfoDO" useGeneratedKeys="true" keyProperty="id">
+        insert into `join-test-one`.`s_student_info`
+        (student_id, exam_id, class_id, student_name, certify, mail_address, foreign_lanaguage, student_sex, nation,
+         political, card_id, telephone, subject_type, tocollege, tocampus, tomajor, birthplace, grade, isstate,
+         birthday, note, add_time, add_userid, edit_time, edit_userid)
+        VALUES (#{studentId}, #{examId}, #{classId}, #{studentName}, #{certify}, #{mailAddress}, #{foreignLanaguage},
+                #{studentSex}, #{nation}, #{political}, #{cardId}, #{telephone}, #{subjectType}, #{tocollege},
+                #{tocampus}, #{tomajor}, #{birthplace}, #{grade}, #{isstate}, #{birthday}, #{note}, #{addTime},
+                #{addUserid}, #{editTime}, #{editUserid})
+    </insert>
 </mapper>
