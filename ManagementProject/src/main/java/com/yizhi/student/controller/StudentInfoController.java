@@ -3,6 +3,7 @@ package com.yizhi.student.controller;
 import com.yizhi.common.annotation.Log;
 import com.yizhi.common.utils.BeanHump;
 import com.yizhi.common.utils.PageUtils;
+import com.yizhi.common.utils.Query;
 import com.yizhi.common.utils.R;
 import com.yizhi.student.domain.StudentInfoDO;
 import com.yizhi.student.service.StudentInfoService;
@@ -54,13 +55,19 @@ public class StudentInfoController {
     @GetMapping("/list")
     @RequiresPermissions("student:studentInfo:studentInfo")
     public PageUtils list(@RequestParam Map<String, Object> params) {
-        //查询列表数据
+        //如果有排序字段，转换为数据库字段,驼峰转下划线,如：userName转换为user_name
         if (params.get("sort") != null) {
             params.put("sort", BeanHump.camelToUnderline(params.get("sort").toString()));
         }
+        //封装查询参数
+        Query query = new Query(params);
+        //查询列表数据
         List<StudentInfoDO> list = studentInfoService.list(params);
-        return null;
-
+        //查询总条数
+        int total = studentInfoService.count(query);
+        //new一个分页工具类，将查询到的数据封装到分页工具类中
+        PageUtils pageUtils = new PageUtils(list, total, query.getCurrPage(), query.getPageSize());
+        return pageUtils;
     }
 
 

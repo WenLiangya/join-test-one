@@ -12,4 +12,88 @@
                 #{tocampus}, #{tomajor}, #{birthplace}, #{grade}, #{isstate}, #{birthday}, #{note}, #{addTime},
                 #{addUserid}, #{editTime}, #{editUserid})
     </insert>
+
+    <select id="list" resultType="com.yizhi.student.domain.StudentInfoDO">
+        select *
+        from `join-test-one`.s_student_info
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="studentId != null and studentId != ''">
+                and student_id = #{studentId}
+            </if>
+            <if test="examId != null and examId != ''">
+                and exam_id = #{examId}
+            </if>
+            <if test="classId != null and classId != ''">
+                and class_id = #{classId}
+            </if>
+            <if test="studentName != null and studentName != ''">
+                and student_name = #{studentName}
+            </if>
+            <if test="certify != null and certify != ''">
+                and certify = #{certify}
+            </if>
+            <if test="mailAddress != null and mailAddress != ''">
+                and mail_address = #{mailAddress}
+            </if>
+            <if test="foreignLanaguage != null and foreignLanaguage != ''">
+                and foreign_lanaguage = #{foreignLanaguage}
+            </if>
+            <if test="studentSex != null and studentSex != ''">
+                and student_sex = #{studentSex}
+            </if>
+            <if test="nation != null and nation != ''">
+                and nation = #{nation}
+            </if>
+        </where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+            <otherwise>
+                order by id desc
+            </otherwise>
+        </choose>
+        <if test="offset != null and limit != null">
+            limit #{offset}, #{limit}
+        </if>
+    </select>
+    <select id="count" resultType="java.lang.Integer">
+        select count(*)
+        from `join-test-one`.s_student_info
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="studentId != null and studentId != ''">
+                and student_id = #{studentId}
+            </if>
+            <if test="examId != null and examId != ''">
+                and exam_id = #{examId}
+            </if>
+            <if test="classId != null and classId != ''">
+                and class_id = #{classId}
+            </if>
+            <if test="studentName != null and studentName != ''">
+                and student_name = #{studentName}
+            </if>
+            <if test="certify != null and certify != ''">
+                and certify = #{certify}
+            </if>
+            <if test="mailAddress != null and mailAddress != ''">
+                and mail_address = #{mailAddress}
+            </if>
+            <if test="foreignLanaguage != null and foreignLanaguage != ''">
+                and foreign_lanaguage = #{foreignLanaguage}
+            </if>
+            <if test="studentSex != null and studentSex != ''">
+                and student_sex = #{studentSex}
+            </if>
+            <if test="nation != null and nation != ''">
+                and nation = #{nation}
+            </if>
+        </where>
+    </select>
 </mapper>
