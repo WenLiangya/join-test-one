@@ -2,6 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.yizhi.student.dao.StudentInfoDao">
+    <sql id="StudentInfo">
+        <if test="id != null and id != ''">
+            id = #{id}
+        </if>
+        <if test="classId != null and classId != ''">
+            and class_id = #{classId}
+        </if>
+        <if test="tocollege != null and tocollege != ''">
+            and tocollege = #{tocollege}
+        </if>
+        <if test="tomajor != null and tomajor != ''">
+            and tomajor = #{tomajor}
+        </if>
+    </sql>
     <insert id="save" parameterType="com.yizhi.student.domain.StudentInfoDO" useGeneratedKeys="true" keyProperty="id">
         insert into `join-test-one`.`s_student_info`
         (student_id, exam_id, class_id, student_name, certify, mail_address, foreign_lanaguage, student_sex, nation,
@@ -12,41 +26,94 @@
                 #{tocampus}, #{tomajor}, #{birthplace}, #{grade}, #{isstate}, #{birthday}, #{note}, #{addTime},
                 #{addUserid}, #{editTime}, #{editUserid})
     </insert>
+    <update id="update" parameterType="com.yizhi.student.domain.StudentInfoDO">
+        update `join-test-one`.s_student_info
+        <set>
+            <if test="studentId != null">
+                student_id = #{studentId},
+            </if>
+            <if test="examId != null">
+                exam_id = #{examId},
+            </if>
+            <if test="classId != null">
+                class_id = #{classId},
+            </if>
+            <if test="studentName != null">
+                student_name = #{studentName},
+            </if>
+            <if test="certify != null">
+                certify = #{certify},
+            </if>
+            <if test="mailAddress != null">
+                mail_address = #{mailAddress},
+            </if>
+            <if test="foreignLanaguage != null">
+                foreign_lanaguage = #{foreignLanaguage},
+            </if>
+            <if test="studentSex != null">
+                student_sex = #{studentSex},
+            </if>
+            <if test="nation != null">
+                nation = #{nation},
+            </if>
+            <if test="political != null">
+                political = #{political},
+            </if>
+            <if test="cardId != null">
+                card_id = #{cardId},
+            </if>
+            <if test="telephone != null">
+                telephone = #{telephone},
+            </if>
+            <if test="subjectType != null">
+                subject_type = #{subjectType},
+            </if>
+            <if test="tocollege != null">
+                tocollege = #{tocollege},
+            </if>
+            <if test="tocampus != null">
+                tocampus = #{tocampus},
+            </if>
+            <if test="tomajor != null">
+                tomajor = #{tomajor},
+            </if>
+            <if test="birthplace != null">
+                birthplace = #{birthplace},
+            </if>
+            <if test="grade != null">
+                grade = #{grade},
+            </if>
+            <if test="isstate != null">
+                isstate = #{isstate},
+            </if>
+            <if test="birthday != null">
+                birthday = #{birthday},
+            </if>
+            <if test="note != null">
+                note = #{note}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <delete id="remove">
+        delete
+        from `join-test-one`.s_student_info
+        where id = #{id}
+    </delete>
+    <delete id="batchRemove">
+        delete
+        from `join-test-one`.s_student_info
+        where id in
+        <foreach collection="array" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
 
     <select id="list" resultType="com.yizhi.student.domain.StudentInfoDO">
         select *
         from `join-test-one`.s_student_info
         <where>
-            <if test="id != null and id != ''">
-                and id = #{id}
-            </if>
-            <if test="studentId != null and studentId != ''">
-                and student_id = #{studentId}
-            </if>
-            <if test="examId != null and examId != ''">
-                and exam_id = #{examId}
-            </if>
-            <if test="classId != null and classId != ''">
-                and class_id = #{classId}
-            </if>
-            <if test="studentName != null and studentName != ''">
-                and student_name = #{studentName}
-            </if>
-            <if test="certify != null and certify != ''">
-                and certify = #{certify}
-            </if>
-            <if test="mailAddress != null and mailAddress != ''">
-                and mail_address = #{mailAddress}
-            </if>
-            <if test="foreignLanaguage != null and foreignLanaguage != ''">
-                and foreign_lanaguage = #{foreignLanaguage}
-            </if>
-            <if test="studentSex != null and studentSex != ''">
-                and student_sex = #{studentSex}
-            </if>
-            <if test="nation != null and nation != ''">
-                and nation = #{nation}
-            </if>
+            <include refid="StudentInfo"/>
         </where>
         <choose>
             <when test="sort != null and sort.trim() != ''">
@@ -64,36 +131,12 @@
         select count(*)
         from `join-test-one`.s_student_info
         <where>
-            <if test="id != null and id != ''">
-                and id = #{id}
-            </if>
-            <if test="studentId != null and studentId != ''">
-                and student_id = #{studentId}
-            </if>
-            <if test="examId != null and examId != ''">
-                and exam_id = #{examId}
-            </if>
-            <if test="classId != null and classId != ''">
-                and class_id = #{classId}
-            </if>
-            <if test="studentName != null and studentName != ''">
-                and student_name = #{studentName}
-            </if>
-            <if test="certify != null and certify != ''">
-                and certify = #{certify}
-            </if>
-            <if test="mailAddress != null and mailAddress != ''">
-                and mail_address = #{mailAddress}
-            </if>
-            <if test="foreignLanaguage != null and foreignLanaguage != ''">
-                and foreign_lanaguage = #{foreignLanaguage}
-            </if>
-            <if test="studentSex != null and studentSex != ''">
-                and student_sex = #{studentSex}
-            </if>
-            <if test="nation != null and nation != ''">
-                and nation = #{nation}
-            </if>
+            <include refid="StudentInfo"/>
         </where>
+    </select>
+    <select id="get" resultType="com.yizhi.student.domain.StudentInfoDO">
+        select *
+        from `join-test-one`.s_student_info
+        where id = #{id}
     </select>
 </mapper>

@@ -79,8 +79,8 @@ public class StudentInfoController {
     @PostMapping("/update")
     @RequiresPermissions("student:studentInfo:edit")
     public R update(StudentInfoDO studentInfo) {
-
-        return null;
+        studentInfoService.update(studentInfo);
+        return R.ok();
     }
 
     /**
@@ -91,7 +91,10 @@ public class StudentInfoController {
     @ResponseBody
     @RequiresPermissions("student:studentInfo:remove")
     public R remove(Integer id) {
-        return null;
+        if (studentInfoService.remove(id) > 0) {
+            return R.ok();
+        }
+        return R.error();
     }
 
     /**
@@ -102,8 +105,8 @@ public class StudentInfoController {
     @ResponseBody
     @RequiresPermissions("student:studentInfo:batchRemove")
     public R remove(@RequestParam("ids[]") Integer[] ids) {
-
-        return null;
+        studentInfoService.batchRemove(ids);
+        return R.ok();
     }
 
 
