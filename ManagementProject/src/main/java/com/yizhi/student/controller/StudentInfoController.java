@@ -1,5 +1,6 @@
 package com.yizhi.student.controller;
 
+import com.github.pagehelper.PageHelper;
 import com.yizhi.common.annotation.Log;
 import com.yizhi.common.utils.BeanHump;
 import com.yizhi.common.utils.PageUtils;
@@ -63,11 +64,11 @@ public class StudentInfoController {
         Query query = new Query(params);
         //查询列表数据
         List<StudentInfoDO> list = studentInfoService.list(params);
+        System.out.println(list.size());
         //查询总条数
         int total = studentInfoService.count(query);
-        //new一个分页工具类，将查询到的数据封装到分页工具类中
-        PageUtils pageUtils = new PageUtils(list, total, query.getCurrPage(), query.getPageSize());
-        return pageUtils;
+        //new一个分页工具类，将查询到的数据封装到分页工具类中返回
+        return new PageUtils(list, total, query.getCurrPage(), query.getPageSize());
     }
 
 

@@ -1,5 +1,6 @@
 package com.yizhi.student.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.yizhi.student.dao.StudentInfoDao;
 import com.yizhi.student.domain.StudentInfoDO;
 import com.yizhi.student.service.StudentInfoService;
@@ -27,6 +28,12 @@ public class StudentInfoServiceImpl implements StudentInfoService {
 
     @Override
     public List<StudentInfoDO> list(Map<String, Object> map) {
+        int currPage = Integer.parseInt(map.get("currPage").toString());
+        int pageSize = Integer.parseInt(map.get("pageSize").toString());
+        int offset = (currPage-1)*pageSize;
+        int limit = pageSize;
+        map.put("offset",offset);
+        map.put("limit",limit);
         return studentInfoDao.list(map);
     }
 
