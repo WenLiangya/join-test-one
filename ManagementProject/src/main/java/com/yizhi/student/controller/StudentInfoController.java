@@ -60,11 +60,14 @@ public class StudentInfoController {
         if (params.get("sort") != null) {
             params.put("sort", BeanHump.camelToUnderline(params.get("sort").toString()));
         }
+        for (Object value : params.values()) {
+            System.out.println(value);
+        }
+
         //封装查询参数
         Query query = new Query(params);
         //查询列表数据
         List<StudentInfoDO> list = studentInfoService.list(params);
-        System.out.println(list.size());
         //查询总条数
         int total = studentInfoService.count(query);
         //new一个分页工具类，将查询到的数据封装到分页工具类中返回

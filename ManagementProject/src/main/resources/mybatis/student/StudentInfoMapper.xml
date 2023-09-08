@@ -3,17 +3,17 @@
 
 <mapper namespace="com.yizhi.student.dao.StudentInfoDao">
     <sql id="StudentInfo">
-        <if test="id != null and id != ''">
-            id = #{id}
+        <if test="name != null and name != ''" >
+            student_name like CONCAT('%',#{name},'%')
         </if>
         <if test="classId != null and classId != ''">
             and class_id = #{classId}
         </if>
-        <if test="tocollege != null and tocollege != ''">
-            and tocollege = #{tocollege}
+        <if test="tocollegeId != null and tocollegeId != ''">
+            and tocollege = #{tocollegeId}
         </if>
-        <if test="tomajor != null and tomajor != ''">
-            and tomajor = #{tomajor}
+        <if test="tomajorId != null and tomajorId != ''">
+            and tomajor = #{tomajorId}
         </if>
     </sql>
     <insert id="save" parameterType="com.yizhi.student.domain.StudentInfoDO" useGeneratedKeys="true" keyProperty="id">

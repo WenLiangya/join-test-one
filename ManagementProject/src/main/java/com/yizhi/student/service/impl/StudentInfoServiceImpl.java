@@ -28,8 +28,10 @@ public class StudentInfoServiceImpl implements StudentInfoService {
 
     @Override
     public List<StudentInfoDO> list(Map<String, Object> map) {
+        //分页查询参数
         int currPage = Integer.parseInt(map.get("currPage").toString());
         int pageSize = Integer.parseInt(map.get("pageSize").toString());
+        //将分页参数进行处理
         int offset = (currPage-1)*pageSize;
         int limit = pageSize;
         map.put("offset",offset);
